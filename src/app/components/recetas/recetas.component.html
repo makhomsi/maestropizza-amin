@@ -1,0 +1,17 @@
+<h2>{{ producto.name }}</h2>
+<p>{{ producto.description }}</p>
+<p>Precio: {{ producto.price }} (Original: {{ producto.originalPrice }})</p>
+
+@for (id of toppingIds; track id; let i = $index) {
+  <div class="ingredient-row">
+    <img 
+      class="ingredient-img" 
+      [src]="getToppingImgUrl(id)" 
+      [alt]="toppingNames[i] || id" 
+    />
+    <div class="ingredient-line"></div>
+    <span class="ingredient-label">{{ toppingNames[i] || id }}</span>
+  </div>
+}
+
+
