@@ -1,17 +1,20 @@
-<div class="product-card">
-  <h2>{{ producto.name }}</h2>
-  <p>{{ producto.description }}</p>
-  <p>Precio: {{ producto.price }} (Original: {{ producto.originalPrice }})</p>
+<div class="products-container">
+  @for (producto of productos; track producto; let i = $index) {
+    <div class="product-card">
+      <h2>{{ producto?.name }}</h2>
+      <p>{{ producto?.description }}</p>
 
-  @for (id of toppingIds; track id; let i = $index) {
-    <div class="ingredient-row">
-      <img 
-        class="ingredient-img" 
-        [src]="getToppingImgUrl(id)" 
-        [alt]="toppingNames[i] || id" 
-      />
-      <div class="ingredient-line"></div>
-      <span class="ingredient-label">{{ toppingNames[i] || id }}</span>
+      @for (id of producto.toppingIds; track id; let j = $index) {
+        <div class="ingredient-row">
+          <img 
+            class="ingredient-img" 
+            [src]="getToppingImgUrl(id)" 
+            [alt]="producto.toppingNames[j] || id" 
+          />
+          <div class="ingredient-line"></div>
+          <span class="ingredient-label">{{ producto.toppingNames[j] || id }}</span>
+        </div>
+      }
     </div>
   }
 </div>
