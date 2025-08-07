@@ -1,12 +1,18 @@
+export interface Composicion {
+  COD: string;
+  DESC: string;
+  CAPA: number;
+  CANTIDAD: number;
+  UNIDAD: string;
+  TIPO: string;
+  ARRAY_COMPOSICION: Composicion[] | null;
+}
+
 export interface Producto {
-  saleItemID: string;
-  description: string;
-  name: string;
-  originalPrice?: number;
-  price: number;
-  quantity: number;
-  topping_names: string;
-  toppings: string;
-  toppingIds: string[];  
-  toppingNames: string[]; 
+  COD: string;
+  DESC: string;
+  MARCA: number;
+  TIPO: string;
+  ELABORACION: string;
+  ARRAY_COMPOSICION: Composicion[];
 }

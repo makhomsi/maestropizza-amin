@@ -1,22 +1,65 @@
 <div class="products-container">
-  <button (click)="cambiarIdioma('en')">English</button>
-  <button (click)="cambiarIdioma('ar')">العربية</button>
   @for (producto of productos; track producto; let i = $index) {
-    <div class="product-card">
-      <h2>{{ producto?.name }}</h2>
-      <p>{{ producto?.description }}</p>
+    @if (producto.TIPO !== 'C') {
+      <div class="product-card">
+        <!-- Producto normal -->
+        <h2>{{ producto.DESC }}</h2>
+        <img 
+          class="product-img" 
+          [src]="'https://objects.maestropizza.com/ksa/assets/rebranding/products/' + producto.COD + '.png'" 
+          [alt]="producto.DESC" 
+        />
+        <p class="elaboration-text">{{ producto.ELABORACION }}</p>
 
-      @for (id of producto.toppingIds; track id; let j = $index) {
-        <div class="ingredient-row">
-          <img 
-            class="ingredient-img" 
-            [src]="getToppingImgUrl(id)" 
-            [alt]="producto.toppingNames[j] || id" 
-          />
-          <div class="ingredient-line"></div>
-          <span class="ingredient-label">{{ producto.toppingNames[j] || id }}</span>
+        <div class="ingredients-list">
+          @for (ingrediente of obtenerIngredientes(producto); track ingrediente; let j = $index) {
+            <div class="ingredient-row">
+              <img 
+                class="ingredient-img" 
+                [src]="'https://objects.maestropizza.com/ksa/assets/rebranding/toppings/' + ingrediente.COD + '.png'" 
+                [alt]="ingrediente.DESC" 
+              />
+              <div class="ingredient-line"></div>
+              <span class="ingredient-label">{{ ingrediente.DESC }} ({{ ingrediente.CANTIDAD }} {{ ingrediente.UNIDAD }})</span>
+            </div>
+          }
         </div>
-      }
-    </div>
+      </div>
+    }
+
+    @if (producto.TIPO === 'C') {
+      <div class="product-card mitad-mitad">
+        <!-- Producto mitad-mitad -->
+        <h2>{{ producto.DESC }}</h2>
+        <p class="elaboration-text">{{ producto.ELABORACION }}</p>
+
+        <div class="halves-container">
+          @for (mitad of producto.ARRAY_COMPOSICION; track mitad; let k = $index) {
+            <div class="half-card">
+              <h3>Mitad {{ k + 1 }}: {{ mitad.DESC }}</h3>
+              <img 
+                class="product-img" 
+                [src]="'https://objects.maestropizza.com/ksa/assets/rebranding/products/' + mitad.COD + '.png'" 
+                [alt]="mitad.DESC" 
+                style="width: 100%; max-width: 250px;"
+              />
+              <div class="ingredients-list">
+                @for (ingrediente of obtenerIngredientes(mitad); track ingrediente; let j = $index) {
+                  <div class="ingredient-row">
+                    <img 
+                      class="ingredient-img" 
+                      [src]="'https://objects.maestropizza.com/ksa/assets/rebranding/toppings/' + ingrediente.COD + '.png'" 
+                      [alt]="ingrediente.DESC" 
+                    />
+                    <div class="ingredient-line"></div>
+                    <span class="ingredient-label">{{ ingrediente.DESC }} ({{ ingrediente.CANTIDAD }} {{ ingrediente.UNIDAD }})</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
   }
 </div>

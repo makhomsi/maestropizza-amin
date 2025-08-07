@@ -1,67 +1,192 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/ingredientes.service';
 import { Producto } from '../../models/producto.model';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-pizza-detail',
-  imports: [RouterModule, CommonModule, HttpClientModule],
+  imports: [RouterModule, CommonModule],
   standalone: true,
   templateUrl: './recetas.component.html',
   styleUrls: ['./recetas.component.scss']
 })
 export class RecetasComponent implements OnInit {
-  
-  pizzaForm!: FormGroup;
+
   productos: Producto[] = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) { }
+  productoFinal = {
+    COD: "PLMA",
+    DESC: "Pizza Margarita Large",
+    MARCA: 488,
+    TIPO: "F",
+    ELABORACION: "Empezamos por la más fácil, la Margarita. Extendemos la masa, agregamos salsa de tomate y queso ",
+    ARRAY_COMPOSICION: [
+      {
+        COD: "FGPZT3042",
+        DESC: "Thick",
+        CAPA: 1,
+        CANTIDAD: 1,
+        UNIDAD: "Kg",
+        TIPO: "I",
+        ARRAY_COMPOSICION: null
+      },
+      {
+        COD: "601",
+        DESC: "Tomato Sauce",
+        CAPA: 2,
+        CANTIDAD: 0.15,
+        UNIDAD: "Kg",
+        TIPO: "I",
+        ARRAY_COMPOSICION: null
+      },
+      {
+        COD: "671",
+        DESC: "Maestro Cheese",
+        CAPA: 3,
+        CANTIDAD: 0.15,
+        UNIDAD: "Kg",
+        TIPO: "I",
+        ARRAY_COMPOSICION: null
+      }
+    ]
+  };
+
+  productoMitadMitad = {
+    COD: "HALVES_PRODUCT_INTERNAL",
+    DESC: "Create Your Own",
+    MARCA: 488,
+    TIPO: "C",
+    ELABORACION: "Añadir dos mitades diferentes.",
+    ARRAY_COMPOSICION: [
+      {
+        COD: "PLMA",
+        DESC: "Pizza Margarita Large",
+        TIPO: "M",
+        ARRAY_COMPOSICION: [
+          {
+            COD: "FGPZT3042",
+            DESC: "Thick",
+            CAPA: 1,
+            CANTIDAD: 1,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+          {
+            COD: "601",
+            DESC: "Tomato Sauce",
+            CAPA: 2,
+            CANTIDAD: 0.15,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+          {
+            COD: "671",
+            DESC: "Maestro Cheese",
+            CAPA: 3,
+            CANTIDAD: 0.15,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+        ]
+      },
+      {
+        COD: "PLCB",
+        DESC: "Pizza Barbacoa Large",
+        TIPO: "M",
+        ARRAY_COMPOSICION: [
+          {
+            COD: "FGPZT3042",
+            DESC: "Thick",
+            CAPA: 1,
+            CANTIDAD: 1,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+          {
+            COD: "601",
+            DESC: "Tomato Sauce",
+            CAPA: 2,
+            CANTIDAD: 0.15,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+          {
+            COD: "671",
+            DESC: "Maestro Cheese",
+            CAPA: 3,
+            CANTIDAD: 0.15,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+          {
+            COD: "664",
+            DESC: "Grilled Chicken",
+            CAPA: 4,
+            CANTIDAD: 0.15,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          },
+          {
+            COD: "059",
+            DESC: "Onion",
+            CAPA: 5,
+            CANTIDAD: 0.15,
+            UNIDAD: "Kg",
+            TIPO: "I",
+            ARRAY_COMPOSICION: null
+          }
+        ]
+      }
+    ]
+  };
+
+  // Producto que se mostrará en la interfaz
+  productoSeleccionado: any;
 
   ngOnInit(): void {
-    const branchID = 5;
-    const orderNumber = 1010039081;
-    const source = 'W';
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkxNzc0NywiaWF0IjoxNzU0Mzk3MDYwLCJleHAiOjE3ODU5NTQ2NjB9.j3o10aEHFsQwCPCzrZOZJhxJJ5eEDhc0J5gZHahK8P8';
+    // Cambia aquí el producto que quieres visualizar:
+    // this.productoSeleccionado = this.productoFinal;
+    this.productoSeleccionado = this.productoMitadMitad;
 
-    this.apiService.getTicketDetail(branchID, orderNumber, source, token).subscribe({
-      next: (data) => {
-        console.log('Detalle del ticket:', data);
-
-        if (data.lines && data.lines.length > 0) {
-          this.productos = data.lines.map((line: Producto) => {
-            const toppingIds = line.toppings.split(';')
-              .map(id => id.replace('+', '').trim())
-              .filter(id => id.length > 0);
-
-            const toppingNames = line.topping_names.split(',')
-              .map(name => name.trim())
-              .filter(name => name.length > 0);
-
-            return {
-              ...line,
-              originalPrice: line.price,
-              toppingIds,    
-              toppingNames 
-            };
-          });
-        }
-      },
-      error: (err) => {
-        console.error('Error al cargar el ticket:', err);
-      }
-    });
+    this.productos = [this.productoSeleccionado];
   }
 
-  getToppingImgUrl(id: string): string {
-    return `https://objects.maestropizza.com/ksa/assets/rebranding/toppings/${id}.png`;
-  }
-
-  cambiarIdioma(idioma: 'en'|'ar'){
-    localStorage.setItem('language', idioma);
-    window.location.reload();
-  }
+ obtenerIngredientes(producto: any): any[] {
+  const ingredientes: any[] = [];
   
+  function recorrer(nodo: any) {
+    if (!nodo.ARRAY_COMPOSICION) return;
+    for (const item of nodo.ARRAY_COMPOSICION) {
+      if (item.TIPO === 'I') {
+        ingredientes.push(item);
+      } else {
+        recorrer(item);
+      }
+    }
+  }
+
+  if (producto.TIPO === 'C') {
+    // Es un producto compuesto, recorrer cada mitad y extraer ingredientes
+    for (const mitad of producto.ARRAY_COMPOSICION) {
+      recorrer(mitad);
+    }
+  } else {
+    // Producto normal, recorrer directamente
+    recorrer(producto);
+  }
+
+  return ingredientes;
+}
+
+
+  getImagenProducto(id: string): string {
+    return `https://objects.maestropizza.com/ksa/assets/rebranding/products/${id}.png`;
+  }
 }

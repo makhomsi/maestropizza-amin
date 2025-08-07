@@ -53,6 +53,15 @@ getCurrentLanguage(): 'en' | 'ar' {
   return lang === 'ar' ? 'ar' : 'en';
 }
 
-
-
 }
+
+
+/*producto finall ( producto normal) f = foto final del producto
+producto compuesto (tipo facil) 
+
+titulo 
+imagen 
+texto de elaboracion
+ingredientes
+
+a partir de la capa 21 incluida van despues de hornear las pizzas*/
