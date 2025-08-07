@@ -13,15 +13,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getProductoPorId(id: string, language?: string): Observable<Producto> {
-  let url = `${this.apiUrl}saleItems/${id}`;
-
-  if (language) {
-    url += `?language=${language}`;
-  }
-
+  getProductoPorId(id: string): Observable<Producto> {
+  const language = this.getCurrentLanguage(); // Obtenemos el idioma actual del localStorage
+  const url = `${this.apiUrl}saleItems/${id}?language=${language}`;
   return this.http.get<Producto>(url);
 }
+
 getProductoConParametros(id: string, loading: string, language: string): Observable<Producto> {
   const url = `${this.apiUrl}saleItems/${id}`;
 
@@ -37,7 +34,7 @@ getTicketDetail(
   source: string,
   token: string,
   loading = false,
-  language = 'en'
+  language = this.getCurrentLanguage()
 ): Observable<any> {
   const url = `${this.apiUrl}tickets/details?loading=${loading}&language=${language}`;
   const headers = new HttpHeaders({
@@ -50,6 +47,12 @@ getTicketDetail(
 
   return this.http.post(url, body, { headers });
 }
+
+getCurrentLanguage(): 'en' | 'ar' {
+  const lang = localStorage.getItem('language');
+  return lang === 'ar' ? 'ar' : 'en';
+}
+
 
 
 }

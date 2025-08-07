@@ -32,7 +32,6 @@ export class RecetasComponent implements OnInit {
 
         if (data.lines && data.lines.length > 0) {
           this.productos = data.lines.map((line: Producto) => {
-            // Procesamos toppings para CADA pizza individualmente
             const toppingIds = line.toppings.split(';')
               .map(id => id.replace('+', '').trim())
               .filter(id => id.length > 0);
@@ -44,8 +43,8 @@ export class RecetasComponent implements OnInit {
             return {
               ...line,
               originalPrice: line.price,
-              toppingIds,    // Asignamos los IDs procesados
-              toppingNames   // Asignamos los nombres procesados
+              toppingIds,    
+              toppingNames 
             };
           });
         }
@@ -59,4 +58,10 @@ export class RecetasComponent implements OnInit {
   getToppingImgUrl(id: string): string {
     return `https://objects.maestropizza.com/ksa/assets/rebranding/toppings/${id}.png`;
   }
+
+  cambiarIdioma(idioma: 'en'|'ar'){
+    localStorage.setItem('language', idioma);
+    window.location.reload();
+  }
+  
 }

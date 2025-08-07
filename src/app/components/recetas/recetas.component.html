@@ -1,4 +1,6 @@
 <div class="products-container">
+  <button (click)="cambiarIdioma('en')">English</button>
+  <button (click)="cambiarIdioma('ar')">العربية</button>
   @for (producto of productos; track producto; let i = $index) {
     <div class="product-card">
       <h2>{{ producto?.name }}</h2>
