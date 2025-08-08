@@ -6,15 +6,47 @@
 }
 
 :host {
+  --color-primary: #264d40; 
+  --color-accent: #155142; 
+  --color-background-main: #fffbea; 
+  --color-background-card: #ECF3E6; 
+  --color-background-ingredient: #fffde7; 
+  --color-background-button: #f9fbe7; 
+  --color-background-img: #fffff0; 
+  --color-text-dark: #0b3c2d; 
+  
   font-family: 'Rubik-Regular', sans-serif;
+  display: block;
 }
 
+
+.marca-488 {
+  --color-primary: #264d40;
+  --color-accent: #155142;
+  --color-background-main: #fffbea;
+  --color-background-card: #ECF3E6;
+  --color-background-ingredient: #fffde7;
+  --color-background-button: #f9fbe7;
+  --color-background-img: #fffff0;
+  --color-text-dark: #0b3c2d;
+}
+///////ejemplo 
+.marca-490 {
+  --color-primary: #4a148c; 
+  --color-accent: #320b86;
+  --color-background-main: #f3e5f5;
+  --color-background-card: #ede7f6;
+  --color-background-ingredient: #d1c4e9;
+  --color-background-button: #ede7f6;
+  --color-background-img: #ede7f6;
+  --color-text-dark: #311b92;
+}
 body {
   font-family: 'Rubik-Regular', sans-serif;
   margin: 48px;
   font-size: 1.2em;
-  background: #fffbea;
-  color: #264d40;
+  background: var(--color-background-main);
+  color: var(--color-primary);
 }
 
 .products-container {
@@ -25,14 +57,14 @@ body {
 }
 
 .product-card {
-  background: #ECF3E6;
-  border: 2px solid #155142;
+  background: var(--color-background-card);
+  border: 2px solid var(--color-accent);
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(38, 77, 64, 0.1);
   padding: 24px;
   width: 380px;
   box-sizing: border-box;
-  color: #ECF3E6;
+  color: var(--color-background-card);
   transition: transform 0.2s ease;
   margin-bottom: 32px;
 }
@@ -47,8 +79,8 @@ body {
   min-width: 900px;
   display: flex;
   flex-direction: column;
-  background: #ECF3E6;
-  border: 2px solid #155142;
+  background: var(--color-background-card);
+  border: 2px solid var(--color-accent);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 6px 15px rgba(38, 77, 64, 0.1);
@@ -68,12 +100,12 @@ body {
 .half-card {
   flex: 1 1 300px;
   max-width: 420px;
-  background-color: #fffde7;
-  border: 2px solid #264d40;
+  background-color: var(--color-background-ingredient);
+  border: 2px solid var(--color-primary);
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  color: #0b3c2d;
+  color: var(--color-text-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +115,7 @@ body {
 h2 {
   font-size: 1.6em;
   margin-bottom: 24px;
-  color: #264d40;
+  color: var(--color-primary);
   text-shadow: 1px 1px 2px rgba(38, 77, 64, 0.3);
   font-weight: 700;
   letter-spacing: 1.2px;
@@ -91,7 +123,7 @@ h2 {
 
 p {
   font-size: 1.25em;
-  color: #264d40;
+  color: var(--color-primary);
   margin-bottom: 12px;
   font-weight: 600;
 }
@@ -102,7 +134,7 @@ p {
   gap: 12px;
   align-items: center;
   margin-bottom: 18px;
-  background: #fffde7;
+  background: var(--color-background-ingredient);
   padding: 12px 16px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(38, 77, 64, 0.15);
@@ -121,8 +153,8 @@ p {
   height: 64px;
   object-fit: contain;
   border-radius: 12px;
-  border: 2px solid #264d40;
-  background: #fffff0;
+  border: 2px solid var(--color-primary);
+  background: var(--color-background-img);
   box-shadow: 0 2px 6px rgba(38, 77, 64, 0.4);
   display: block;
 }
@@ -130,27 +162,28 @@ p {
 .ingredient-line {
   width: 80px;
   height: 4px;
-  background: #264d40;
+  background: var(--color-primary);
   border-radius: 2px;
   box-shadow: 0 0 8px rgba(38, 77, 64, 0.5);
 }
 
+
 .ingredient-label {
   font-size: 1.4em;
   font-weight: 700;
-  color: #264d40;
+  color: var(--color-primary);
   text-shadow: 0 1px 1px rgba(38, 77, 64, 0.2);
 }
 
 button {
-  background: #f9fbe7;
-  color: #264d40;
+  background: var(--color-background-button);
+  color: var(--color-primary);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
   font-size: 1.1em;
   padding: 12px 24px;
   margin: 0 8px 16px 0;
-  border: 2px solid #264d40;
+  border: 2px solid var(--color-primary);
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(38, 77, 64, 0.1);
@@ -159,13 +192,26 @@ button {
 }
 
 button:hover {
-  background: #264d40;
-  color: #fffbea;
+  background: var(--color-primary);
+  color: var(--color-background-main);
   box-shadow: 0 6px 15px rgba(38, 77, 64, 0.3);
   transform: translateY(-3px);
 }
 
 button:focus {
-  outline: 3px solid #fffff0;
+  outline: 3px solid var(--color-background-img);
   outline-offset: 3px;
 }
+
+.ingredientes-separador {
+  border: none;
+  border-top: 2px solid var(--color-primary);
+  margin: 1rem 0 0.5rem;
+}
+
+.ingredientes-titulo {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+

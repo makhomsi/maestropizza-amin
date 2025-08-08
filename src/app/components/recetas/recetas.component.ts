@@ -13,13 +13,14 @@ import { Producto } from '../../models/producto.model';
 export class RecetasComponent implements OnInit {
 
   productos: Producto[] = [];
-
+  
+  marcaClass: string = '';
   productoFinal = {
     COD: "PLMA",
     DESC: "Pizza Margarita Large",
     MARCA: 488,
     TIPO: "F",
-    ELABORACION: "Empezamos por la más fácil, la Margarita. Extendemos la masa, agregamos salsa de tomate y queso ",
+    ELABORACION: "Let's start with the easiest, the Margarita. We roll out the dough, add tomato sauce, and add cheese.",
     ARRAY_COMPOSICION: [
       {
         COD: "FGPZT3042",
@@ -56,7 +57,7 @@ export class RecetasComponent implements OnInit {
     DESC: "Create Your Own",
     MARCA: 488,
     TIPO: "C",
-    ELABORACION: "Añadir dos mitades diferentes.",
+    ELABORACION: "Add two different halves.",
     ARRAY_COMPOSICION: [
       {
         COD: "PLMA",
@@ -136,7 +137,7 @@ export class RecetasComponent implements OnInit {
           {
             COD: "059",
             DESC: "Onion",
-            CAPA: 5,
+            CAPA: 21,
             CANTIDAD: 0.15,
             UNIDAD: "Kg",
             TIPO: "I",
@@ -146,16 +147,170 @@ export class RecetasComponent implements OnInit {
       }
     ]
   };
+  productoCompuesto = {
+  COD: "NPPL",
+  DESC: "PIANO PIZZA",
+  MARCA: 488,
+  TIPO: "C",
+  ELABORACION: "Add multiple pizzas.",
+  ARRAY_COMPOSICION: [
+    {
+      COD: "PLMA",
+      DESC: "Pizza Margarita Large",
+      TIPO: "R",
+      ARRAY_COMPOSICION: [
+        {
+          COD: "FGPZT3042",
+          DESC: "Thick",
+          CAPA: 1,
+          CANTIDAD: 1,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "601",
+          DESC: "Tomato Sauce",
+          CAPA: 2,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "671",
+          DESC: "Maestro Cheese",
+          CAPA: 3,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+      ]
+    },
+    {
+      COD: "PLCB",
+      DESC: "Pizza Barbacoa Large",
+      TIPO: "R",
+      ARRAY_COMPOSICION: [
+        {
+          COD: "FGPZT3042",
+          DESC: "Thick",
+          CAPA: 1,
+          CANTIDAD: 1,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "601",
+          DESC: "Tomato Sauce",
+          CAPA: 2,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "671",
+          DESC: "Maestro Cheese",
+          CAPA: 3,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "664",
+          DESC: "Grilled Chicken",
+          CAPA: 4,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "059",
+          DESC: "Onion",
+          CAPA: 5,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        }
+      ]
+    },
+    {
+      COD: "PLPE",
+      DESC: "Pizza Pepperoni Large",
+      TIPO: "R",
+      ARRAY_COMPOSICION: [
+        {
+          COD: "FGPZT3042",
+          DESC: "Thick",
+          CAPA: 1,
+          CANTIDAD: 1,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "601",
+          DESC: "Tomato Sauce",
+          CAPA: 2,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "671",
+          DESC: "Maestro Cheese",
+          CAPA: 3,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        },
+        {
+          COD: "023",
+          DESC: "Pepperoni",
+          CAPA: 4,
+          CANTIDAD: 0.15,
+          UNIDAD: "Kg",
+          TIPO: "I",
+          ARRAY_COMPOSICION: null
+        }
+      ]
+    }
+  ]
+};
 
-  // Producto que se mostrará en la interfaz
+
   productoSeleccionado: any;
 
   ngOnInit(): void {
-    // Cambia aquí el producto que quieres visualizar:
-    // this.productoSeleccionado = this.productoFinal;
+    this.productoSeleccionado = this.productoFinal;
     this.productoSeleccionado = this.productoMitadMitad;
 
-    this.productos = [this.productoSeleccionado];
+this.productos = [
+    this.productoSeleccionado,
+    this.productoFinal,
+    this.productoMitadMitad,
+    this.productoCompuesto
+  ]; 
+this.actualizarClaseMarca();
+}
+actualizarClaseMarca(): void {
+    if (this.productoSeleccionado && this.productoSeleccionado.MARCA) {
+      this.marcaClass = 'marca-' + this.productoSeleccionado.MARCA;
+    } else {
+      this.marcaClass = ''; 
+    }
+  }
+   seleccionarProducto(producto: any): void {
+    this.productoSeleccionado = producto;
+    this.actualizarClaseMarca();
   }
 
  obtenerIngredientes(producto: any): any[] {
@@ -173,12 +328,10 @@ export class RecetasComponent implements OnInit {
   }
 
   if (producto.TIPO === 'C') {
-    // Es un producto compuesto, recorrer cada mitad y extraer ingredientes
     for (const mitad of producto.ARRAY_COMPOSICION) {
       recorrer(mitad);
     }
   } else {
-    // Producto normal, recorrer directamente
     recorrer(producto);
   }
 
