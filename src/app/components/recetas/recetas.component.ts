@@ -13,7 +13,10 @@ import { Router } from '@angular/router';
   imports: [RouterModule, CommonModule],
   standalone: true,
   templateUrl: './recetas.component.html',
-  styleUrls: ['./recetas.component.scss']
+  styleUrls: ['./recetas.component.scss'],
+  host: {
+    '[class]': 'marcaClass'
+  }
 })
 export class RecetasComponent implements OnInit {
 constructor(private route: ActivatedRoute, private router: Router) {}

@@ -4,7 +4,7 @@
     @if (productoSeleccionado) {
       @if (productoSeleccionado.TIPO !== 'C') {
         <div class="product-card">
-          <h2>{{ productoSeleccionado.DESC }}</h2>
+            <h2 class="pizza-title">{{ productoSeleccionado.DESC }}</h2>
           <img 
             class="product-img" 
             [src]="getImagenProducto(productoSeleccionado.COD)" 
@@ -36,13 +36,13 @@
 
       @if (productoSeleccionado.TIPO === 'C') {
         <div class="product-card mitad-mitad">
-          <h2>{{ productoSeleccionado.DESC }}</h2>
+          <h2 class="pizza-title">{{ productoSeleccionado.DESC }}</h2>
           <p class="elaboration-text">{{ productoSeleccionado.ELABORACION }}</p>
 
           <div class="halves-container">
             @for (mitad of productoSeleccionado.ARRAY_COMPOSICION; track mitad; let k = $index) {
               <div class="half-card">
-                <h3>{{ mitad.DESC }}</h3>
+                  <h3 class="pizza-title">{{ mitad.DESC }}</h3>
                 <img 
                   class="product-img" 
                   [src]="getImagenProducto(mitad.COD)" 
