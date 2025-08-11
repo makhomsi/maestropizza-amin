@@ -1,12 +1,13 @@
 export interface Composicion {
   COD: string;
   DESC: string;
-  CAPA: number;
-  CANTIDAD: number;
-  UNIDAD: string;
+  CAPA?: number;
+  CANTIDAD?: number;
+  UNIDAD?: string;
   TIPO: string;
   ARRAY_COMPOSICION: Composicion[] | null;
 }
+
 
 export interface Producto {
   COD: string;

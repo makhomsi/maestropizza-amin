@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Producto } from '../../models/producto.model';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-pizza-detail',
@@ -11,11 +16,12 @@ import { Producto } from '../../models/producto.model';
   styleUrls: ['./recetas.component.scss']
 })
 export class RecetasComponent implements OnInit {
+constructor(private route: ActivatedRoute, private router: Router) {}
 
   productos: Producto[] = [];
   
   marcaClass: string = '';
-  productoFinal = {
+  /*productoFinal = {
     COD: "PLMA",
     DESC: "Pizza Margarita Large",
     MARCA: 488,
@@ -284,23 +290,50 @@ export class RecetasComponent implements OnInit {
       ]
     }
   ]
-};
+};*/
 
 
   productoSeleccionado: any;
+  product: any;
 
   ngOnInit(): void {
-    this.productoSeleccionado = this.productoFinal;
-    this.productoSeleccionado = this.productoMitadMitad;
+  const params = new URLSearchParams(window.location.search);
+  let productStr = params.get('product');
 
-this.productos = [
-    this.productoSeleccionado,
-    this.productoFinal,
-    this.productoMitadMitad,
-    this.productoCompuesto
-  ]; 
-this.actualizarClaseMarca();
+  if (productStr) {
+    try {
+      productStr = decodeURIComponent(productStr);
+      productStr = this.toJSONSafe(productStr);
+      productStr = this.cleanJsonString(productStr);
+
+      console.log('Cleaned productStr:', productStr);
+
+      this.productoSeleccionado = JSON.parse(productStr);
+      this.actualizarClaseMarca(); 
+
+      console.log('Producto seleccionado:', this.productoSeleccionado);
+    } catch (e) {
+      console.error('Error al parsear product:', e);
+    }
+  }
 }
+
+// Añade comillas a las claves para convertir formato JS en JSON válido
+toJSONSafe(str: string): string {
+  return str.replace(/(\w+):/g, '"$1":');
+}
+
+// Elimina comas finales sobrantes y punto y coma para limpiar JSON inválido
+cleanJsonString(str: string): string {
+  str = str.replace(/,\s*([\]}])/g, '$1');
+  str = str.trim();
+  if (str.endsWith(';')) {
+    str = str.slice(0, -1);
+  }
+  return str;
+}
+
+
 actualizarClaseMarca(): void {
     if (this.productoSeleccionado && this.productoSeleccionado.MARCA) {
       this.marcaClass = 'marca-' + this.productoSeleccionado.MARCA;
@@ -342,4 +375,22 @@ actualizarClaseMarca(): void {
   getImagenProducto(id: string): string {
     return `https://objects.maestropizza.com/ksa/assets/rebranding/products/${id}.png`;
   }
+  getImagenIngrediente(id: string, marca: number): string {
+  switch (marca) {
+    case 488:
+      return `https://objects.maestropizza.com/ksa/assets/rebranding/toppings/${id}.png`;
+    case 48801:
+      return `https://objects.maestropizza.com/uae/assets/rebranding/toppings/${id}.png`;
+    case 48802:
+      return `https://objects.pinzatta.com/pinzattav2/assets/toppings/${id}.png`;
+    case 48804:
+      return `https://objects.madpizza.sa/mad/assets/toppings/${id}.png`;
+    case 48805:
+      return `https://objects.groundr.com/groundr/assets/toppings/${id}.png`;
+    default:
+      return `https://sources-sp001.s3.eu-south-2.amazonaws.com/produccion/recursos/${marca}/imagenes/fotos/ingredientes/${id}.png`;
+  }
+}
+
+
 }

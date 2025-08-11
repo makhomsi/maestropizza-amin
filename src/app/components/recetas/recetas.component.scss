@@ -19,7 +19,7 @@
   display: block;
 }
 
-
+//maestropizza ksa
 .marca-488 {
   --color-primary: #264d40;
   --color-accent: #155142;
@@ -30,17 +30,53 @@
   --color-background-img: #fffff0;
   --color-text-dark: #0b3c2d;
 }
-///////ejemplo 
-.marca-490 {
-  --color-primary: #4a148c; 
-  --color-accent: #320b86;
-  --color-background-main: #f3e5f5;
-  --color-background-card: #ede7f6;
-  --color-background-ingredient: #d1c4e9;
-  --color-background-button: #ede7f6;
-  --color-background-img: #ede7f6;
-  --color-text-dark: #311b92;
+//maestropizza uae
+.marca-48801 {
+  --color-primary: #264d40;
+  --color-accent: #155142;
+  --color-background-main: #fffbea;
+  --color-background-card: #ECF3E6;
+  --color-background-ingredient: #fffde7;
+  --color-background-button: #f9fbe7;
+  --color-background-img: #fffff0;
+  --color-text-dark: #0b3c2d;
 }
+//pinzata
+.marca-48802 {
+  --color-primary: #F06292;
+  --color-accent: #4CAF50; 
+  --color-background-main: #FFFFFF; 
+  --color-background-card: #F8BBD0; 
+  --color-background-ingredient: #C8E6C9; 
+  --color-background-button: #FCE4EC; 
+  --color-background-img: #FCE4EC;
+  --color-text-dark: #388E3C; 
+}
+//madpizza
+.marca-48804 {
+  --color-primary: #e31937;
+  --color-accent: #000000; 
+  --color-background-main: #0a0a0a; 
+  --color-background-card: #1a1a1a;
+  --color-background-ingredient: #1a1a1a; 
+  --color-background-button: #e31937; 
+  --color-background-img: #2a2a2a; 
+  --color-text-dark: #ffffff; 
+  --color-text-light: #e31937; 
+}
+//groundr
+.marca-48805 {
+  --color-primary: #e4007f; 
+  --color-accent: #000000; 
+  --color-background-main: #faf9f5;
+  --color-background-card: #f6f5ef; 
+  --color-background-ingredient: #f6f5ef;
+  --color-background-button: #e4007f; 
+  --color-background-img: #faf9f5; 
+  --color-text-dark: #000000; 
+}
+
+
 body {
   font-family: 'Rubik-Regular', sans-serif;
   margin: 48px;
